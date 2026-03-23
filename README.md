@@ -1,4 +1,8 @@
 # Tetris: Fair Edition
+<p align="center">
+  <img src="images/title.PNG" alt="Title"/>
+</p>
+
 This repo contains the patch for the NES Tetris game, which implements the mondern [7-Bag Random Generator](https://tetris.wiki/Random_Generator) instead of pure randomness.
 
 ## **Installation**  <a id="installation"></a>
