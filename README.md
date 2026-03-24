@@ -101,7 +101,7 @@ The $4X region of ram contain the data concerning the current piece. $40 is wher
 | ■  |  0A |
 | S  |  0B |
 | L  | 0E  |
-| |  | 12  |
+| \|  | 12  |
 
 These values are actually not the identifiers of the pieces, persay, but the specific <i>orientation</i> of the piece. For example, #00 is also the T piece, but rotated. So really, there are 4 values which represent the T piece, but for whatever reason, #02 is the defacto identifier.
 
