@@ -22,7 +22,7 @@ Perhaps the simplest explanation as to "why I created this patch", would come fr
 Since you don't click every link you see, and you don't like fun, I shall summarize: the sketch takes the perspective of a Tetris god and his two angels, as the god decides which pieces to drop to the mortal below. As the game progresses, the mood shifts from optimism to despair, as the god drops more and more ill-fitting pieces.
 
 <p align="center">
-  <img src="images/no_place_for_a_square.png" alt="I still quote this every time this happens."/>
+  <img src="images/no_place_for_a_square.PNG" alt="I still quote this every time this happens."/>
   <br>
   "There is no <i>place for a square</i>!"
 </p>
@@ -30,7 +30,7 @@ Since you don't click every link you see, and you don't like fun, I shall summar
 This culminates to a point where the player desperately needs a line piece, which the god refuses to drop. Out of desperation, the player plugs the gap with an L piece - then the god drops line piece, line piece, line piece...
 
 <p align="center">
-  <img src="images/no.png" alt="I quote this, also."/>
+  <img src="images/no.PNG" alt="I quote this, also."/>
   <br>
   "No... no, no..."
 </p>
