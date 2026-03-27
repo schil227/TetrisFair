@@ -22,7 +22,7 @@ Perhaps the simplest explanation as to "why I created this patch", would come fr
 Since you don't click every link you see, and you don't like fun, I shall summarize: the sketch takes the perspective of a Tetris god and his two angels, as the god decides which pieces to drop to the mortal below. As the game progresses, the mood shifts from optimism to despair, as the god drops more and more ill-fitting pieces.
 
 <p align="center">
-  <img src="images/no_place_for_a_square.png" alt="I still quote this every time this happens."/>
+  <img src="images/no_place_for_a_square.PNG" alt="I still quote this every time this happens."/>
   <br>
   "There is no <i>place for a square</i>!"
 </p>
@@ -30,7 +30,7 @@ Since you don't click every link you see, and you don't like fun, I shall summar
 This culminates to a point where the player desperately needs a line piece, which the god refuses to drop. Out of desperation, the player plugs the gap with an L piece - then the god drops line piece, line piece, line piece...
 
 <p align="center">
-  <img src="images/no.png" alt="I quote this, also."/>
+  <img src="images/no.PNG" alt="I quote this, also."/>
   <br>
   "No... no, no..."
 </p>
@@ -101,7 +101,7 @@ The $4X region of ram contain the data concerning the current piece. $40 is wher
 | ■  |  0A |
 | S  |  0B |
 | L  | 0E  |
-| |  | 12  |
+| \|  | 12  |
 
 These values are actually not the identifiers of the pieces, persay, but the specific <i>orientation</i> of the piece. For example, #00 is also the T piece, but rotated. So really, there are 4 values which represent the T piece, but for whatever reason, #02 is the defacto identifier.
 
@@ -280,8 +280,49 @@ A4 32   // LDY $32     // Load Y from $32
 A6 31   // LDX $31     // Load X from $31
 A5 30   // LDA $30     // Load Acc from $30
 60      // RTS         // (done)
+```
+
+### StorePiece
+_Location: 007A00_
+
+A simple function used by __InitializeBags__, it stores the piece currently loaded in the accumulator to specific places in the zero-page memory.
 
 ```
+95 20       // STA $20,X ; stores the value of acc at $29+X (Current Bag)
+95 29       // STA $29,X ; stores the value of acc at $29+X (OnDeck) 
+95 39       // STA $39,X ; stores the value of acc at $39+X (Original)
+E8          // INX Increment X for the next call
+60          // RTS Return from sub-routine
+```
+
+ Fun fact, this was one of the first sub routines I wrote for this project, when I didn't have a fully fleshed-out idea of what I was planning to do. For example, storing the values in the CurrentBag is unnecessairy, as after we shuffle OnDeck and replace Current bag before it's even used. But also, I had planned to replace OnDeck with the "Original" bag, which is just an unsorted set of the pieces. As I worked, I realized that this step was also unnecessairy. Alas, these things will stay as they are, for I can't be bothered to remove them.
+
+### InitializeBags
+_Location: 007A06_
+
+This function initializes the On Deck bag with a unique set of all the pieces. It's always in the same order, but this isn't a problem as it will be shuffled in __InitShuffle7__. Also, at the end, it sets the initial value for the X index to zero.
+
+```
+A2 00       // LDX #00, initalizes X to 0
+A9 02       // LDA #02, loads the T piece into the accumulator
+20 EE F9    // JSR - StorePiece
+A9 07       // L* piece
+20 EE F9    // JSR - StorePiece
+A9 08       // Z piece
+20 EE F9    // JSR - StorePiece
+A9 0A       // [] piece 
+20 EE F9    // JSR - StorePiece
+A9 0B       // S piece
+20 EE F9    // JSR - StorePiece
+A9 0E       // L piece
+20 EE F9    // JSR - StorePiece
+A9 12       // | piece
+20 EE F9    // JSR - StorePiece
+A9 00       // load #00 into acc
+85 27       // STA $27 ; sets the 
+60          // RTS
+```
+
 ### InitShuffle7
 _Location: 007B30_
 
