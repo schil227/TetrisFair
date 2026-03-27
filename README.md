@@ -398,3 +398,29 @@ Final note: About half-way through my work, I realized that the demo probably wo
 <p align="center">
   <img src="images/drunk_demo.gif" alt="The demo doesn't know what the fuck to do now"/>
 </p>
+
+# BONUS
+Per the request of one person, I made a second hack: "Oops! All Line Pieces!". This was done by making a very simple modification to the __InitializeBags__ sub routine.
+
+```
+A2 00       // LDX #00, initalizes X to 0
+A9 02       // LDA #02, loads the | piece into the accumulator
+20 EE F9    // JSR - StorePiece
+A9 12       // | piece again,
+20 EE F9    // JSR - StorePiece
+A9 12       // and again,
+20 EE F9    // JSR - StorePiece
+A9 12       // and again,
+20 EE F9    // JSR - StorePiece
+A9 12       // and again,
+20 EE F9    // JSR - StorePiece
+A9 12       // and again,
+20 EE F9    // JSR - StorePiece
+A9 12       // and again!
+20 EE F9    // JSR - StorePiece
+A9 00       // load #00 into acc
+85 27       // STA $27 ; sets the 
+60          // RTS
+```
+
+This was _extremely_ lazily done. I couldn't be bothered to even modify the sub routine to just load the accumulator once, let alone just patching the original Tetris rom instead of using all the 7-bag overhead. But I had about an hour, and I got lunch to make, so there ya go. If you want to play it for 5 minutes, go ahead and grab the patch under the /oops folder, and follow the installation steps at the beginning.
